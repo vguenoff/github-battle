@@ -1,19 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 
+import 'normalize.css';
 import './index.css';
 
-class App extends Component {
-  render() {
-    return (
-        <div>
-          <p>Hello React Training!</p>
-        </div>
-    );
-  }
-}
+import App from './components/App.js';
 
-render(
-  <App />,
-  document.getElementById('root')
-);
+render(<App />, document.getElementById('root'));
