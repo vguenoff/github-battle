@@ -35,6 +35,7 @@ RepoGrid.propTypes = {
 const StyledRepoGrid = styled.ul`
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 
     .item {
         margin: 20px;
