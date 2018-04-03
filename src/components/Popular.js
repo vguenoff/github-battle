@@ -1,47 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
+
+import api from '../utils/api';
+
+import SelectLanguage from './SelectLanguage';
+import RepoGrid from './RepoGrid';
 
 export default class Popular extends Component {
     state = {
-        languages: ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'],
         selectedLanguage: 'All',
+        repos: null,
     };
 
+    componentDidMount() {
+        this.updateLanguage(this.state.selectedLanguage);
+    }
+
     updateLanguage = lang => {
-        this.setState({ selectedLanguage: lang });
+        this.setState({ selectedLanguage: lang, repos: null });
+
+        api.fetchPopularRepos(lang).then(res => this.setState({ repos: res }));
     };
 
     render() {
-        const { languages, selectedLanguage } = this.state;
-
         return (
-            <StyledPopular>
-                {languages.map(lang => (
-                    <li
-                        key={lang}
-                        className={`list-item ${selectedLanguage === lang ? 'selected' : ''}`}
-                        onClick={() => this.updateLanguage(lang)}
-                    >
-                        {lang}
-                    </li>
-                ))}
-            </StyledPopular>
+            <Fragment>
+                <SelectLanguage
+                    selectedLanguage={this.state.selectedLanguage}
+                    onClick={lang => this.updateLanguage(lang)}
+                />
+                {!this.state.repos ? (
+                    <p style={{ textAlign: 'center' }}>Loading...</p>
+                ) : (
+                    <RepoGrid repos={this.state.repos} />
+                )}
+            </Fragment>
         );
     }
 }
-
-const StyledPopular = styled.ul`
-    display: flex;
-    justify-content: center;
-
-    .list-item {
-        list-style-type: none;
-        font-weight: bold;
-        cursor: pointer;
-        margin: 10px;
-    }
-
-    .selected {
-        color: #d0021b;
-    }
-`;
