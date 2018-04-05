@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 
-import api from '../utils/api';
+import { fetchPopularRepos } from '../utils/api';
 
 import SelectLanguage from './SelectLanguage';
 import RepoGrid from './RepoGrid';
@@ -12,15 +13,22 @@ export default class Popular extends Component {
         repos: null,
     };
 
+    popularRepos = fetchPopularRepos();
+
     componentDidMount() {
         this.updateLanguage(this.state.selectedLanguage);
     }
 
     updateLanguage = lang => {
-        this.setState({ selectedLanguage: lang, repos: null });
-
-        api.fetchPopularRepos(lang).then(res => this.setState({ repos: res }));
+        return this.popularRepos
+            .get(lang)
+            .then(res => this.setState({ repos: res }))
+            .catch(err => console.log(err));
     };
+
+    componentWillUnmount() {
+        this.popularRepos.cancel();
+    }
 
     render() {
         return (
