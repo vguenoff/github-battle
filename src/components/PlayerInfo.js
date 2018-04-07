@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-import Button from '../StyledComponents/Button';
 
 export default class Home extends Component {
     render() {
@@ -17,12 +14,4 @@ export default class Home extends Component {
     }
 }
 
-const StyledHome = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .link {
-        text-decoration: none;
-    }
-`;
+const StyledHome = styled.div``;

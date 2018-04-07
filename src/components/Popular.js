@@ -19,16 +19,16 @@ export default class Popular extends Component {
         this.updateLanguage(this.state.selectedLanguage);
     }
 
+    componentWillUnmount() {
+        this.popularRepos.cancel();
+    }
+
     updateLanguage = lang => {
         return this.popularRepos
             .get(lang)
             .then(res => this.setState({ repos: res }))
             .catch(err => console.log(err));
     };
-
-    componentWillUnmount() {
-        this.popularRepos.cancel();
-    }
 
     render() {
         return (
