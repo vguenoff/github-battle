@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import PlayerInput from './PlayerInput';
+import PlayerPreview from './PlayerPreview';
+import Button from '../StyledComponents/Button';
 
 export default class Battle extends Component {
     state = {
@@ -21,32 +24,81 @@ export default class Battle extends Component {
         });
     };
 
+    handleReset = id => {
+        const key1 = `${id}Name`;
+        const key2 = `${id}Image`;
+
+        this.setState({
+            [key1]: '',
+            [key2]: null,
+        });
+    };
+
     render() {
         const { playerOneName, playerTwoName } = this.state;
+        const { match } = this.props;
 
         return (
+            <StyledBattle>
                 <div className="row">
-                    {!playerOneName && (
+                    {!playerOneName ? (
                         <PlayerInput
                             id="playerOne"
                             label="Player One"
                             handleSubmit={this.handleSubmit}
                             className="column"
                         />
+                    ) : (
+                        <PlayerPreview
+                            id="playerOne"
+                            username={this.state.playerOneName}
+                            image={this.state.playerOneImage}
+                            onClick={this.handleReset}
+                        />
                     )}
-                    {!playerTwoName && (
+                    {!playerTwoName ? (
                         <PlayerInput
                             id="playerTwo"
                             label="Player Two"
                             handleSubmit={this.handleSubmit}
-                            className="column"                            
+                            className="column"
+                        />
+                    ) : (
+                        <PlayerPreview
+                            id="playerTwo"
+                            username={this.state.playerTwoName}
+                            image={this.state.playerTwoImage}
+                            onClick={this.handleReset}
                         />
                     )}
+                    <div className="battle-link">
+                        {playerOneName &&
+                            playerTwoName && (
+                                <Link
+                                    to={{
+                                        pathname: `${match.url}/results`,
+                                        search: `?playerOneName=${playerOneName}&playerTwoName=${playerTwoName}`,
+                                    }}
+                                >
+                                    <Button>Battle</Button>
+                                </Link>
+                            )}
+                    </div>
                 </div>
+            </StyledBattle>
         );
     }
 }
 
 const StyledBattle = styled.div`
+    .battle-link {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
 
+        a {
+            text-decoration: none;
+        }
+    }
 `;

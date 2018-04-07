@@ -11,7 +11,7 @@ const Button = styled.button`
     text-align: center;
     display: block;
     padding: 7px 0;
-    margin: 10px auto;
+    margin: 10px unset;
     &:hover:enabled {
         background: linear-gradient(#1a1a1a, #0a0a0a);
         color: #fff;
