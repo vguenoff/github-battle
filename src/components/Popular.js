@@ -24,7 +24,9 @@ export default class Popular extends Component {
     }
 
     updateLanguage = lang => {
-        return this.popularRepos
+        this.setState({ selectedLanguage: lang, repos: null });
+
+        this.popularRepos
             .get(lang)
             .then(res => this.setState({ repos: res }))
             .catch(err => console.log(err));
@@ -35,7 +37,7 @@ export default class Popular extends Component {
             <Fragment>
                 <SelectLanguage
                     selectedLanguage={this.state.selectedLanguage}
-                    onClick={lang => this.updateLanguage(lang)}
+                    onClick={this.updateLanguage}
                 />
                 {!this.state.repos ? (
                     <p style={{ textAlign: 'center' }}>Loading...</p>

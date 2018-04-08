@@ -53,8 +53,14 @@ export default class Battle extends Component {
                             id="playerOne"
                             username={this.state.playerOneName}
                             image={this.state.playerOneImage}
-                            onClick={this.handleReset}
-                        />
+                        >
+                            <button
+                                className="reset-btn"
+                                onClick={() => this.handleReset('playerOne')}
+                            >
+                                Reset
+                            </button>
+                        </PlayerPreview>
                     )}
                     {!playerTwoName ? (
                         <PlayerInput
@@ -68,8 +74,14 @@ export default class Battle extends Component {
                             id="playerTwo"
                             username={this.state.playerTwoName}
                             image={this.state.playerTwoImage}
-                            onClick={this.handleReset}
-                        />
+                        >
+                            <button
+                                className="reset-btn"
+                                onClick={() => this.handleReset('playerTwo')}
+                            >
+                                Reset
+                            </button>
+                        </PlayerPreview>
                     )}
                     <div className="battle-link">
                         {playerOneName &&
@@ -98,6 +110,16 @@ const StyledBattle = styled.div`
         margin-top: 30px;
 
         a {
+            text-decoration: none;
+        }
+    }
+    .reset-btn {
+        cursor: pointer;
+        color: #d0021b;
+        border: none;
+        text-decoration: underline;
+        background: transparent;
+        &:hover {
             text-decoration: none;
         }
     }

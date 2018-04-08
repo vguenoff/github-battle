@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
-import { string, func } from 'prop-types';
+import { string, func, any } from 'prop-types';
 import styled from 'styled-components';
 
-const PlayerPreview = ({ onClick, id, image, username }) => (
+const PlayerPreview = ({ children, image, username }) => (
     <StyledPlayerPreview>
         <img src={image} alt={`$Avatar for ${username}`} className="avatar" />
         <div className="text-content">
             <h2 className="user-name">@{username}</h2>
-            <button className="reset" onClick={() => onClick(id)}>
-                Reset
-            </button>
+            {children}
         </div>
     </StyledPlayerPreview>
 );
 
 PlayerPreview.propTypes = {
-    id: string.isRequired,
     username: string.isRequired,
     image: string.isRequired,
-    onClick: func.isRequired,
+    children: any,
 };
 
 const StyledPlayerPreview = styled.div`
@@ -33,16 +30,6 @@ const StyledPlayerPreview = styled.div`
     }
     .user-name {
         margin: 5px 0;
-    }
-    .reset {
-        cursor: pointer;
-        color: #d0021b;
-        border: none;
-        text-decoration: underline;
-        background: transparent;
-        &:hover {
-            text-decoration: none;
-        }
     }
 `;
 

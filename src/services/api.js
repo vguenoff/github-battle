@@ -60,16 +60,16 @@ export function battle(players) {
     };
 }
 
-export function fetchPopularRepos(language) {
+export function fetchPopularRepos() {
     const source = axios.CancelToken.source();
     const token = { cancelToken: source.token };
 
-    const encodedURI = window.encodeURI(
-        `https://api.github.com/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`
-    );
-
     return {
         get(language) {
+            const encodedURI = window.encodeURI(
+                `https://api.github.com/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`
+            );
+
             return axios.get(encodedURI, token).then(res => res.data.items);
         },
         cancel() {
