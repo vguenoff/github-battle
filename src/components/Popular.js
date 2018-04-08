@@ -6,6 +6,7 @@ import { fetchPopularRepos } from '../services/api';
 
 import SelectLanguage from './SelectLanguage';
 import RepoGrid from './RepoGrid';
+import Loading from './Loading';
 
 export default class Popular extends Component {
     state = {
@@ -39,11 +40,7 @@ export default class Popular extends Component {
                     selectedLanguage={this.state.selectedLanguage}
                     onClick={this.updateLanguage}
                 />
-                {!this.state.repos ? (
-                    <p style={{ textAlign: 'center' }}>Loading...</p>
-                ) : (
-                    <RepoGrid repos={this.state.repos} />
-                )}
+                {!this.state.repos ? <Loading /> : <RepoGrid repos={this.state.repos} />}
             </Fragment>
         );
     }
