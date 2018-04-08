@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import { fetchPopularRepos } from '../utils/api';
+import { fetchPopularRepos } from '../services/api';
 
 import SelectLanguage from './SelectLanguage';
 import RepoGrid from './RepoGrid';
